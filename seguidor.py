@@ -7,6 +7,13 @@ video = "video.mp4"
 
 cap = cv2.VideoCapture(video)
 
+# mask exemplo para linha
+
+#lower_white = np.array([0, 0, 212])
+#upper_white = np.array([131, 255, 255])
+# Threshold the HSV image
+#mask = cv2.inRange(hsv, lower_white, upper_white)
+
 while True:
     ret, frame = cap.read()
 
