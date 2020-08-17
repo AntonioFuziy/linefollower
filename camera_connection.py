@@ -12,7 +12,9 @@ time.sleep(0.1)
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     image = frame.array
-
+    
+    #Aqui se encaixaria o código de visão computacional para o movimento do robô também ser realizado
+    
     cv2.imshow("frame", frame)
 
     key = cv2.waitKey(1) & 0xFF
