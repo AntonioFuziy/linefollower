@@ -11,7 +11,7 @@ import math
 #video = "video.mp4"
 
 #path da imagem
-imagem = "imagem.jpg"
+imagem = "assets/imagem.jpg"
 
 #capturando o video de exemplo
 #cap = cv2.VideoCapture(video)

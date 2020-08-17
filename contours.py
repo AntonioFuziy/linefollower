@@ -1,7 +1,8 @@
+# -*- coding:utf-8 -*-
 import cv2
 import numpy as np
 
-video = "linha.webm"
+video = "assets/linha.webm"
 video_capture = cv2.VideoCapture(video)
 
 while True:

@@ -1,13 +1,22 @@
-import numpy as np
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import time
 import cv2
 import L298
 
-video = "linha.webm"
-video_capture = cv2.VideoCapture(video)
+camera = PiCamera
+camera.resolution = (640, 480)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(640,480))
 
-while(True):
-    # Capture the frames
-    ret, frame = video_capture.read()
+time.sleep(0.1)
+
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    image = frame.array
+    
+    #Aqui se encaixaria o código de visão computacional para o movimento do robô também ser realizado
+
+    frame = image
 
     # Crop the image
     #======================================================================================================
@@ -64,5 +73,9 @@ while(True):
     # cv2.imshow("blur", blur)
     # cv2.imshow("thresh", thresh)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    key = cv2.waitKey(1) & 0xFF
+
+    rawCapture.truncate(0)
+
+    if key == ord("q"):
         break

@@ -4,7 +4,7 @@ import numpy as np
 import math
 import time
 
-cap = cv2.VideoCapture("video1.mp4")
+cap = cv2.VideoCapture("assets/video1.mp4")
 #cap = cv2.VideoCapture("video2.mp4")
 #cap = cv2.VideoCapture("video3.mp4")
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)

@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-video = "linha.webm"
+video = "assets/linha.webm"
 video_capture = cv2.VideoCapture(video)
 
 while(True):
