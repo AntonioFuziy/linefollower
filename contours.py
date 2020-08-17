@@ -20,6 +20,7 @@ while True:
     contours,_ = cv2.findContours(thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
     print("Number of contourns detected {}".format(len(contours)))
 
+    #pegando o primeiro contorno identificado, a linha abaixo pega todos os contornos identificados na imagem
     cv2.drawContours(crop_img, contours, 0, (0,255,0), 3)
     # cv2.drawContours(crop_img, contours, -1, (0,255,0), 3)
     if len(contours) > 0:
