@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 
-video = "assets/linha.webm"
+video = "assets/linha.mp4"
 video_capture = cv2.VideoCapture(video)
 
 while(True):
@@ -11,7 +11,11 @@ while(True):
     # Crop the image
     #======================================================================================================
     # ISSO PRECISA SER ALTERADO NO MOMENTO DE TESTE COM A RASP
-    crop_img = frame[600:940, 500:800]
+    try:
+        crop_img = frame
+    except:
+        print("The video has ended!")
+        break
 
     # Convert to grayscale
     gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
@@ -39,14 +43,16 @@ while(True):
             cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1)
             cv2.drawContours(crop_img, contours, -1, (0,255,0), 1)
 
-            if cx >= 120:
+            #Valor original cx >= 120
+            if cx >= 170:
+                print("Turn Right!")
+
+            # Valor original cx > 50
+            elif cx <= 120:
                 print("Turn Left!")
 
-            if cx < 120 and cx > 50:
-                print("On Track!")
-
-            if cx <= 50:
-                print("Turn Right")
+            else:
+                print("On Track")
         except:
             pass
 
