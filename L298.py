@@ -37,7 +37,7 @@ class Direction:
         time.sleep(self.delay)
         gpio.cleanup()
 
-#asjdiopdsja for moving the robot
+#Instances for moving the robot
 forward   = Direction(delay, [pin1, pin2, pin3, pin4], [True, False, True, False])
 right     = Direction(delay, [pin1, pin2, pin3, pin4], [True, True, True, False])
 left      = Direction(delay, [pin1, pin2, pin3, pin4], [True, False, True, True])
