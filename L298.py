@@ -21,69 +21,41 @@ gpio.setup(pin4, gpio.OUT)  #Motor esquerdo terminal B
 gpio.setup(pin5, gpio.IN)   #Entrada do sensor direito
 gpio.setup(pin6, gpio.IN)   #Entrada do sensor esquerdo
 
-#functions for moving the robot
-def forward(delay):
-    gpio.output(pin1, True)
-    gpio.output(pin2, False)
+class Direction:
+    def __init__(self, delay, pinList, conditionList):
+        self.delay = delay
+        self.pinList = pinList
+        self.conditionList = conditionList
 
-    gpio.output(pin3, True)
-    gpio.output(pin4, False)
+    def moving(self):
+        gpio.output(self.pinList[0], self.conditionList[0])
+        gpio.output(self.pinList[1], self.conditionList[1])
 
-    time.sleep(delay)
-    gpio.cleanup()
+        gpio.output(self.pinList[2], self.conditionList[2])
+        gpio.output(self.pinList[3], self.conditionList[3])
 
-def right(delay):
-    gpio.output(pin1, True)
-    gpio.output(pin2, True)
+        time.sleep(self.delay)
+        gpio.cleanup()
 
-    gpio.output(pin3, True)
-    gpio.output(pin4, False)
-
-    time.sleep(delay)
-    gpio.cleanup()
-
-def left(delay):
-    gpio.output(pin1, True)
-    gpio.output(pin2, False)
-
-    gpio.output(pin3, True)
-    gpio.output(pin4, True)
-
-    time.sleep(delay)
-    gpio.cleanup()
-
-def backwards(delay):
-    gpio.output(pin1, False)
-    gpio.output(pin2, True)
-
-    gpio.output(pin3, False)
-    gpio.output(pin4, True)
-
-    time.sleep(delay)
-    gpio.cleanup()
-
-def stop(delay):
-    gpio.output(pin1, True)
-    gpio.output(pin2, True)
-
-    gpio.output(pin3, True)
-    gpio.output(pin4, True)
-
-    time.sleep(delay)
-    gpio.cleanup()
+#asjdiopdsja for moving the robot
+forward   = Direction(delay, [pin1, pin2, pin3, pin4], [True, False, True, False])
+right     = Direction(delay, [pin1, pin2, pin3, pin4], [True, True, True, False])
+left      = Direction(delay, [pin1, pin2, pin3, pin4], [True, False, True, True])
+backwards = Direction(delay, [pin1, pin2, pin3, pin4], [False, True, False, True])
+stop      = Direction(delay, [pin1, pin2, pin3, pin4], [True, True, True, True])
 
 #going forward
 if gpio.input(pin5) == True and gpio.input(pin6) == True:
-    forward(delay)
+    forward.moving()
 
 #turning right
 elif gpio.input(pin5) == False and gpio.input(pin6) == True:
-    right(delay)
+    right.moving()
 
 #turning left
 elif gpio.input(pin5) == True and gpio.input(pin6) == False:
-    left(delay)
+    left.moving()
 
 #stopping
 else:
-    stop(delay)
+    stop.moving()

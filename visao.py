@@ -8,14 +8,14 @@ while(True):
     # Capture the frames
     ret, frame = video_capture.read()
 
-    # Crop the image
-    #======================================================================================================
-    # ISSO PRECISA SER ALTERADO NO MOMENTO DE TESTE COM A RASP
-    try:
-        crop_img = frame[600:940, 500:800]
-    except:
+    if ret == False:
         print("The video has ended!")
         break
+
+    # Crop the image ([600:940, 500:800])
+    #======================================================================================================
+    # ISSO PRECISA SER ALTERADO NO MOMENTO DE TESTE COM A RASP
+    crop_img = frame[600:940, 500:840]
 
     # Convert to grayscale
     gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
@@ -30,7 +30,6 @@ while(True):
     contours,hierarchy = cv2.findContours(thresh.copy(), 1, cv2.CHAIN_APPROX_NONE)
 
     # Find the biggest contour (if detected)
-
     if len(contours) > 0:
         c = max(contours, key=cv2.contourArea)
         M = cv2.moments(c)
@@ -43,12 +42,14 @@ while(True):
             cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1)
             cv2.drawContours(crop_img, contours, -1, (0,255,0), 1)
 
-            #Valor original cx >= 120
-            if cx >= 170:
+            # 340 = tamanho da tela em x
+            # 340-(340/3)-20
+            if cx >= 207:
                 print("Turn Right!")
 
-            # Valor original cx > 50
-            elif cx <= 120:
+            # 340 = tamanho da tela em y
+            # (340/3)-20
+            elif cx <= 133:
                 print("Turn Left!")
 
             else:
@@ -60,11 +61,14 @@ while(True):
         print("Dont see the line")
 
     #Display the resulting frame
-
-    cv2.imshow('frame',crop_img)
+    cv2.imshow('frame', crop_img)
     # cv2.imshow("gray", gray)
     # cv2.imshow("blur", blur)
     # cv2.imshow("thresh", thresh)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
+# When everything done, release the capture
+video_capture.release()
+cv2.destroyAllWindows()
