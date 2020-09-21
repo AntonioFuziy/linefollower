@@ -12,7 +12,7 @@ while(True):
         print("The video has ended!")
         break
 
-    # Crop the image ([600:940, 500:800])
+    # Crop the image -> original: ([600:940, 500:800])
     #======================================================================================================
     # ISSO PRECISA SER ALTERADO NO MOMENTO DE TESTE COM A RASP
     crop_img = frame[600:940, 500:840]
