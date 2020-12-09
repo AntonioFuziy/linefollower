@@ -4,6 +4,8 @@ import cv2
 video = "assets/linha.mp4"
 video_capture = cv2.VideoCapture(video)
 
+delay = 1
+
 while(True):
     # Capture the frames
     ret, frame = video_capture.read()
@@ -40,6 +42,7 @@ while(True):
 
             cv2.line(crop_img,(cx,0),(cx,720),(255,0,0),1)
             cv2.line(crop_img,(0,cy),(1280,cy),(255,0,0),1)
+            cv2.circle(crop_img, (cx, cy), 10, (255, 0, 0), 2)
             cv2.drawContours(crop_img, contours, -1, (0,255,0), 1)
 
             # 340 = tamanho da tela em x
