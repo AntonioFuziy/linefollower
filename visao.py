@@ -26,7 +26,7 @@ while(True):
     blur = cv2.GaussianBlur(gray,(5,5),0)
 
     # Color thresholding
-    ret,thresh = cv2.threshold(blur,130,255,cv2.THRESH_BINARY_INV)
+    ret,thresh = cv2.threshold(blur,130,255,cv2.THRESH_BINARY)
 
     # Find the contours of the frame
     contours,hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
