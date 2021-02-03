@@ -97,15 +97,19 @@ if __name__=="__main__":
     velocidade_saida = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
     tfl = tf2_ros.TransformListener(tf_buffer) #conversao do sistema de coordenadas 
 
+    margem = 80
     try:
         while not rospy.is_shutdown():
             try:
-                if (media_pista[0] > centro_pista[0]):
+                if media_pista[0] > (centro_pista[0] + margem):
                     velocidade_saida.publish(vel_direita)
-                elif (media_pista[0] < centro_pista[0]):
+                    print("Direita")
+                elif media_pista[0] < (centro_pista[0] - margem):
                     velocidade_saida.publish(vel_esquerda)
+                    print("Esquerda")
                 else:
                     velocidade_saida.publish(vel_frente)
+                    print("Frente")
                 
                 rospy.sleep(0.1)
 
