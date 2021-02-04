@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 # -*- coding:utf-8 -*-
-__author__ = ["Rachel P. B. Moraes", "Fabio Miranda"]
 
 import rospy
 import numpy as np
@@ -42,8 +41,8 @@ tfl = 0
 tf_buffer = tf2_ros.Buffer()
 
 # Inicializando velocidades - por default gira no sentido anti-horário
-w = 0.5
-v = 0.25
+w = 1.0
+v = 0.5
 vel_direita = Twist(Vector3(v,0,0), Vector3(0,0,-w))
 vel_esquerda = Twist(Vector3(v,0,0), Vector3(0,0,w))
 vel_frente = Twist(Vector3(v,0,0), Vector3(0,0,0))
@@ -97,7 +96,7 @@ if __name__=="__main__":
     velocidade_saida = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
     tfl = tf2_ros.TransformListener(tf_buffer) #conversao do sistema de coordenadas 
 
-    margem = 80
+    margem = 60
     try:
         while not rospy.is_shutdown():
             try:
@@ -113,10 +112,8 @@ if __name__=="__main__":
                 
                 rospy.sleep(0.1)
 
-
             except:
                 pass
-
 
     except rospy.ROSInterruptException:
         print("Ocorreu uma exceção com o rospy")
